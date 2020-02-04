@@ -1,15 +1,20 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const routes = require('./routes')
+const express = require('express');
+const mongoose = require('mongoose');
+const routes = require('./routes');
+const cors = require('cors');
 
-const server = express()
+const server = express();
 
-mongoose.connect('mongodb+srv://root:root@cluster0-fqff3.mongodb.net/tindev?retryWrites=true&w=majority', {
+mongoose.connect(
+  'mongodb+srv://root:root@cluster0-fqff3.mongodb.net/tindev?retryWrites=true&w=majority',
+  {
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
+  }
+);
 
-server.use(express.json())
-server.use(routes)
+server.use(cors());
+server.use(express.json());
+server.use(routes);
 
-server.listen(3333)
+server.listen(3333);
