@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import api from '../../services/api';
@@ -38,6 +39,18 @@ export default function Main({ match }) {
       setUsers(response.data);
     }
     loadUsers();
+  }, [devId]);
+
+  useEffect(() => {
+    const socket = io('http://localhost:3333', {
+      query: {
+        user: devId
+      }
+    });
+
+    socket.on('match', dev => {
+      console.log(dev);
+    });
   }, [devId]);
 
   return (
